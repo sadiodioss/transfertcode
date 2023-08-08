@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer un compte pour un client</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <select class="nav-filter form-select">
+                        <option value="all">Filtrer transaction par</option>
+                        <option value="montant">Par montant</option>
+                        <option value="date">Date</option>
+                        <option value="numero">Numéro</option>
+                    </select>
+                </li>
+                <li class="nav-item">
+                  <button class="nav-btn btn btn-primary" data-toggle="modal" data-target="#myModal">Ajouter client</button>
+                  </li>
+                <li class="nav-item">
+                    <button class="nav-btn btn btn-primary" data-bs-toggle="modal" data-bs-target="#transactionModal">Effectuer une transaction</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+ <!-- Modal -->
+ <div class="modal" id="myModal">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h4 class="modal-title">Ajouter client</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+              <form id="clientForm">
+                  <div class="form-group">
+                      <label for="nom">Nom :</label>
+                      <input type="text" class="form-control" id="nomc" name="nom">
+                  </div>
+                  <div class="form-group">
+                      <label for="numero">Numéro :</label>
+                      <input type="text" class="form-control" id="numeroc" name="numero">
+                  </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+              <button type="button" class="btn btn-primary" form="clientForm" id="ajt">Ajouter</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+    <div class="modal" id="transactionModal" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Effectuer une transaction</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="d-flex">
+                <div class="mb-3">
+                  <label for="destinataire" class="form-label">Nom expediteur:</label>
+                  <input type="text" class="form-control" id="nomexpediteur">
+                </div>
+                <div class="mb-3">
+                  <label for="expediteur" class="form-label">Numéro de l'expéditeur:</label>
+                  <input type="text" class="form-control" id="numeroexp">
+                </div>
+              </div>
+              <div class="d-flex">
+                  <div class="mb-3">
+                    <label for="destinataire" class="form-label">Nom du destinataire:</label>
+                    <input type="text" class="form-control" id="nomReceveur">
+                  </div>
+                  <div class="mb-3">
+                    <label for="expediteur" class="form-label">Numéro du destinataire:</label>
+                    <input type="text" class="form-control" id="numeroReceveur">
+                  </div>
+                </div>
+                <div class="mb-5">
+                  <label for="expediteur" class="form-label">Montant transaction:</label>
+                  <input type="number" class="form-control" id="montant">
+                </div>
+                <select class="mb-4" id="type">type TRANSACTION
+                
+                </select>
+                <select class="mb-4" id="operateur">opperateur
+                  
+                  
+                </select>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-primary" onclick="performTransaction()"id="btn">Valider</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+    </div>
+
+    <div class="container mt-4">
+        <h2>Créer un compte pour un client</h2>
+            <div class="mb-3">
+                <label for="numero" class="form-label">Numro Telephone</label>
+                <input type="text" class="form-control" id="numero" name="numero" required>
+            </div>
+            
+            <!-- Select fournisseur -->
+            <div class="mb-3">
+                <label for="fournisseur" class="form-label">Fournisseur</label>
+                <select type="text" class="form-control" id="fournisseurSelect" name="fournisseurSelect" >
+                    
+                </select>
+            </div>
+            
+            <!-- Champ Solde -->
+            <div class="mb-3">
+                <label for="solde" class="form-label">Solde</label>
+                <input type="number" class="form-control" id="solde" name="solde" value="0" required>
+            </div>
+            
+            <!-- Bouton d'envoi -->
+            <button type="button" class="btn btn-primary" id="btnCreer">Créer</button>
+    
+    </div>
+    </div>
+
+    <div class="mx-3 mt-4">
+        <table class="table">
+            <thead>
+                <th><b>compte_id</b></th>
+                <th><b>etat</b></th>
+                <th><b>client_id</b></th>
+                <th><b>operateur</b></th>
+                <th><b>Solde</b></th>
+                <th>Fermer</th>
+                <th>Bloquer</th>
+                <th>Débloquer</th>
+            </thead>
+            <tbody class="listerCompte" id="comptesTable">
+                <!-- ... Contenu du tableau des comptes ... -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="front.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
